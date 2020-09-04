@@ -1,4 +1,5 @@
 export * from "./useChannel";
+export * from "./useEffectAt";
 export {
   Channel,
   channel,
