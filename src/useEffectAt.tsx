@@ -11,7 +11,7 @@ export const useEffectAfterMount = (
   const didMount = useRef(false);
   useEffect(() => {
     if (didMount.current !== false) {
-      func();
+      return func();
     } else {
       didMount.current = true;
     }
