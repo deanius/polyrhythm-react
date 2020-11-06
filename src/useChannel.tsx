@@ -27,6 +27,7 @@ export const ChannelContext = createContext(defaultChannel);
 export const useChannel = (deps = []) => {
   const channel = useContext(ChannelContext) || defaultChannel;
   return {
+    channel,
     trigger(type: string, payload?: any) {
       channel.trigger(type, payload);
     },

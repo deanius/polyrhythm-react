@@ -65,11 +65,10 @@ describe("useEffectAfterMount", () => {
     expect(canceler).not.toHaveBeenCalled();
   });
 
-
   it("skips mount and unmount, but runs effect upon changes", () => {
     const Wrapper = ({ effect }) => {
       const [count, setCount] = useState(0);
-      useListener("inc", () => setCount((c) => c + 1));
+      useListener("inc", () => setCount(c => c + 1));
       useEffectAfterMount(effect, [count]);
       return null;
     };

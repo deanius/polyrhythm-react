@@ -39,6 +39,26 @@ _TODO: Examples_
 
 `useChannel` is available for more advanced scenarios where a different channel is desired, such as for keeping one sub-tree's events separated from the default, for privacy, simulating a server in-browser (!), or other reasons.
 
+# Middleware
+
+Adding `triggerAllMiddleware(channel)` to your Redux middleware stack will automatically trigger a polyrhythm event-channel event for every Redux action.
+
+Use this to open a debugger (or console.log) when any Redux event happens.
+
+```
+import { channel, triggerAllMiddleware } from 'polyrhythm-react';
+
+middlewares = [
+  ...
+  triggerAllMiddleware(channel)
+]
+
+channel.filter('interesting/event', event => {
+  console.log('Found an interesting event', event);
+  debugger // View the Call Stack to find the action dispatcher!
+})
+```
+
 ## For More Information
 
 See the benefits and learn more in the [`polyrhythm` README](https://github.com/deanius/polyrhythm).
