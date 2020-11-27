@@ -2,6 +2,7 @@ import { createContext, useContext, useRef, useEffect } from "react";
 
 import {
   channel as defaultChannel,
+  Event,
   EventMatcher,
   Filter,
   Listener,
@@ -24,7 +25,7 @@ export const ChannelContext = createContext(defaultChannel);
  * back to the efault channel.
  * @example: const { trigger, on } = useChannel()
  */
-export const useChannel = (deps = []) => {
+export const useChannel = () => {
   const channel = useContext(ChannelContext) || defaultChannel;
   return {
     channel,
@@ -33,15 +34,21 @@ export const useChannel = (deps = []) => {
     },
     useListener(
       eventSpec: EventMatcher,
-      handler: Listener,
-      options: ListenerConfig = {}
+      handler: Listener<Event>,
+      options: ListenerConfigWithDeps = {},
+      deps?: Array<any>
     ) {
+      const _deps = deps || options.deps || [];
       useEffect(() => {
         const sub = channel.on(eventSpec, handler, options);
         return () => sub.unsubscribe();
-      }, deps);
+      }, _deps);
     },
-    useFilter(eventSpec: EventMatcher, filter: Filter) {
+    useFilter(
+      eventSpec: EventMatcher,
+      filter: Filter<Event>,
+      deps: Array<any> = []
+    ) {
       useEffect(() => {
         const sub = channel.filter(eventSpec, filter);
         return () => sub.unsubscribe();
@@ -62,7 +69,7 @@ export const useChannel = (deps = []) => {
  */
 export const useListener = (
   eventSpec: EventMatcher,
-  handler: Listener,
+  handler: Listener<Event>,
   options: ListenerConfigWithDeps = {}
 ) => {
   const { deps = [], ...config } = options;
@@ -86,7 +93,7 @@ export const useListener = (
   */
 export const useFilter = (
   eventSpec: EventMatcher,
-  handler: Listener,
+  handler: Listener<Event>,
   options: ListenerConfigWithDeps = {}
 ) => {
   const { deps = [] } = options;

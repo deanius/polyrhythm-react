@@ -5,6 +5,7 @@ import "@testing-library/jest-dom";
 import { channel, Channel } from "polyrhythm";
 import { ChannelContext } from "../src/useChannel";
 import { Counter } from "../src/7GUIs/01-Counter-Channel";
+import { CounterClosure } from "../src/7GUIs/01-Counter-Channel-Closure";
 
 describe("ChannelContext/useChannel", () => {
   it("shares events by default (usually good)", () => {
@@ -36,5 +37,16 @@ describe("ChannelContext/useChannel", () => {
     fireEvent.click(query("counter2-button"));
     expect(query("counter1")).toHaveTextContent("1");
     expect(query("counter2")).toHaveTextContent("1");
+  });
+
+  describe("Returned useListen function", () => {
+    it("doesnt close over stale state", () => {
+      expect.assertions(1);
+      const { queryByTestId: query } = render(<CounterClosure id="cc1" />);
+
+      fireEvent.click(query("cc1-button"));
+      fireEvent.click(query("cc1-button"));
+      expect(query("cc1")).toHaveTextContent("2");
+    });
   });
 });
