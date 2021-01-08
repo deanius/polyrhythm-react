@@ -6,9 +6,10 @@ import {
   EventMatcher,
   Filter,
   Listener,
-  ListenerConfig,
+  ListenerConfig
 } from "polyrhythm";
 import { Subscription } from "rxjs";
+export { trigger } from "polyrhythm";
 
 interface ListenerConfigWithDeps extends ListenerConfig {
   deps?: Array<any>;
@@ -53,7 +54,7 @@ export const useChannel = () => {
         const sub = channel.filter(eventSpec, filter);
         return () => sub.unsubscribe();
       }, deps);
-    },
+    }
   };
 };
 

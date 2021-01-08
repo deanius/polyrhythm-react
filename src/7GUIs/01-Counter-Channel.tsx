@@ -6,7 +6,7 @@ export const Counter = ({ id = "counter" }) => {
 
   const { useFilter, trigger } = useChannel();
   useFilter("count/increment", () => {
-    setCount((c) => c + 1);
+    setCount(c => c + 1);
   });
 
   return (

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useFilter, trigger } from "polyrhythm";
+import { useFilter, trigger } from "../useChannel";
 
 export const Counter = ({ id = "counter" }) => {
   const [count, setCount] = useState(0);
 
   useFilter("count/increment", () => {
-    setCount((c) => c + 1);
+    setCount(c => c + 1);
   });
 
   return (
