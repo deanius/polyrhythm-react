@@ -22,9 +22,10 @@ interface ListenerConfigWithDeps extends ListenerConfig {
 export const ChannelContext = createContext(defaultChannel);
 
 /**
- * Makes use of a channel provided by a ChannelContext, or falls
- * back to the efault channel.
- * @example: const { trigger, on } = useChannel()
+ * An alternative to the top-level static imports of useListener, trigger, etc.
+ * that implicitly use the default channel. Uses a channel provided by a ChannelContext,
+ * or falls back to the default channel.
+ * @example: const { trigger, useListener } = useChannel();
  */
 export const useChannel = () => {
   const channel = useContext(ChannelContext) || defaultChannel;
@@ -32,6 +33,9 @@ export const useChannel = () => {
     channel,
     trigger(type: string, payload?: any) {
       channel.trigger(type, payload);
+    },
+    query(matcher: EventMatcher) {
+      return channel.query(matcher);
     },
     useListener(
       eventSpec: EventMatcher,
