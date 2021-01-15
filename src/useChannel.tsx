@@ -39,7 +39,7 @@ export const useChannel = () => {
     },
     useListener(
       eventSpec: EventMatcher,
-      handler: Listener<Event>,
+      handler: Listener<Event, any>,
       options: ListenerConfigWithDeps = {},
       deps?: Array<any>
     ) {
@@ -74,7 +74,7 @@ export const useChannel = () => {
  */
 export const useListener = (
   eventSpec: EventMatcher,
-  handler: Listener<Event>,
+  handler: Listener<Event, any>,
   options: ListenerConfigWithDeps = {}
 ) => {
   const { deps = [], ...config } = options;
@@ -98,7 +98,7 @@ export const useListener = (
   */
 export const useFilter = (
   eventSpec: EventMatcher,
-  handler: Listener<Event>,
+  handler: Listener<Event, any>,
   options: ListenerConfigWithDeps = {}
 ) => {
   const { deps = [] } = options;

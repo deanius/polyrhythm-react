@@ -6641,9 +6641,9 @@ pnp-webpack-plugin@^1.6.4:
     ts-pnp "^1.1.6"
 
 polyrhythm@^1.1.x:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/polyrhythm/-/polyrhythm-1.1.5.tgz#ea2ab566fd96836a12d87dec09ba6733773914f7"
-  integrity sha512-hn3eU+4mHCAhQqCF9RzKcuLKJ97c/6crDueABckJEGwCR1nCuHpqBsMyK0fyMYvSBcn8xLRUzavmZbLfFOU/kw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/polyrhythm/-/polyrhythm-1.2.0.tgz#e491a2cc02c1f7ff9fb3803cd660f5f4c2a998ae"
+  integrity sha512-EyNB/StaBnP4WB0KTRPbmlr19Kf+I+1NFIjjxK8XHbCUUkNHCNSjKmXnY9CgiT/MdzjsVMZLI8j/XQgTMBTdeA==
   dependencies:
     lodash.ismatch "^4.4.0"
     rxjs "^6.5.5"
