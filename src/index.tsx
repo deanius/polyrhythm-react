@@ -12,6 +12,5 @@ export {
   after,
   concat,
   spy,
-  log,
   reset
 } from "polyrhythm";

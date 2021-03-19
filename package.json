@@ -1,7 +1,7 @@
 {
   "name": "polyrhythm-react",
   "license": "MIT",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "dist/index.js",
   "module": "dist/polyrhythm-react.esm.js",
   "typings": "dist/index.d.ts",
@@ -46,7 +46,7 @@
     "typescript": "^3.6.5"
   },
   "dependencies": {
-    "polyrhythm": ">=1.2.4"
+    "polyrhythm": ">=1.2.5"
   },
   "size-limit": [
     {
