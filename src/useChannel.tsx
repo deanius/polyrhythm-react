@@ -68,47 +68,54 @@ export const useChannel = () => {
  * Cleans up when the component is unmounted.
  * @argument eventSpec - the criteria for the event to listen for
  * @argument handler - the function to be run upon the event, after all filters
- * @argument options - If the handler closes over React hook variables which
- * are not stable, provide the variables in the `deps` field of this object.
- * @returns A ref to a subscription, on which you may invoke .current.unsubscribe()
+ * @argument options - Specify the output events to be triggered in this object.
+ * @returns Array of [trigger, unsub] - where trigger fires ANY event, and unsub cancels any inflight events (and is called automatcially on unmount).
  */
 export const useListener = (
   eventSpec: EventMatcher,
   handler: Listener<Event, any>,
   options: ListenerConfigWithDeps = {}
-) => {
+): [(type: string, payload: any) => void, () => Subscription] => {
   const { deps = [], ...config } = options;
+  const { channel, trigger } = useChannel();
   const subscriptionRef = useRef(new Subscription(() => null));
 
+  let canceler: () => void;
+
   useEffect(() => {
-    const subscription = defaultChannel.on(eventSpec, handler, config);
+    const subscription = channel.on(eventSpec, handler, config);
     subscriptionRef.current = subscription;
-    return () => subscription.unsubscribe();
+    canceler = () => {
+      subscription.unsubscribe();
+      return subscription;
+    };
+    return canceler;
   }, deps);
 
-  return subscriptionRef;
+  // @ts-ignore
+  return [trigger, canceler];
 };
 
 /** Allows a component to intercept and run synchronous
    consequences, alter events, or throw errors to cancel the processing
    * @argument eventSpec - the criteria for the event to listen for
-   * @argument handler - the function to be run synchronously upon the event before all listeners
-   * @argument options - If the handler closes over React hook variables which
-   * are not stable, provide the variables in the `deps` field of this object.
-  */
-export const useFilter = (
-  eventSpec: EventMatcher,
-  handler: Listener<Event, any>,
-  options: ListenerConfigWithDeps = {}
-) => {
-  const { deps = [] } = options;
-  const subscriptionRef = useRef(new Subscription(() => null));
+   * @argument filter - the function to be run synchronously upon the event before all listeners
+   * @returns Array of [trigger, unsub] - where trigger fires the event, and unsub stops filtering, (and is called automatcially on unmount)
+   */
+export const useFilter = (eventSpec: EventMatcher, filter: Filter<Event>) => {
+  const { channel, trigger } = useChannel();
 
+  let canceler: () => void;
   useEffect(() => {
-    const subscription = defaultChannel.filter(eventSpec, handler);
-    subscriptionRef.current = subscription;
-    return () => subscription.unsubscribe();
-  }, deps);
+    const subscription = channel.filter(eventSpec, filter);
+    canceler = () => {
+      subscription.unsubscribe();
+      return subscription;
+    };
 
-  return subscriptionRef;
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // @ts-ignore
+  return [trigger, canceler];
 };

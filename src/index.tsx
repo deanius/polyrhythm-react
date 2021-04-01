@@ -1,5 +1,6 @@
 export * from "./useChannel";
 export * from "./useEffectAt";
+export * from "./useListeners";
 export * from "./middleware";
 export {
   Channel,

@@ -4,8 +4,8 @@ import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { channel, Channel } from "polyrhythm";
 import { ChannelContext } from "../src/useChannel";
-import { Counter } from "../src/7GUIs/01-Counter-Channel";
-import { CounterClosure } from "../src/7GUIs/01-Counter-Channel-Closure";
+import { Counter } from "../src/examples/01-Counter-Channel";
+import { CounterClosure } from "../src/examples/01-Counter-Channel-Closure";
 
 describe("ChannelContext/useChannel", () => {
   it("shares events by default (usually good)", () => {
