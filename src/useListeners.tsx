@@ -47,7 +47,7 @@ export function useReplacingListener(
 }
 
 /** Executes the Observable or Promise-returning listener in a singletion, ignoring (RxJS exhaustMap) mode. */
-export function useIgnoringListener(
+export function useThrottledListener(
   matcher: EventMatcher,
   listener: Listener<Event, any>,
   options: ListenerConfig = {}

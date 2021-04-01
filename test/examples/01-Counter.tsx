@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useChannel } from "../useChannel";
+import { useFilter, trigger } from "../../src/useChannel";
 
 export const Counter = ({ id = "counter" }) => {
   const [count, setCount] = useState(0);
 
-  const { useFilter, trigger } = useChannel();
   useFilter("count/increment", () => {
     setCount(c => c + 1);
   });

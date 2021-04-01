@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useASAPEffect } from "../useListeners";
-import { trigger } from '../useChannel'
+import { useChannel } from "../../src/useChannel";
 
 export const Counter = ({ id = "counter" }) => {
   const [count, setCount] = useState(0);
 
-  useASAPEffect("count/increment", () => {
+  const { useFilter, trigger } = useChannel();
+  useFilter("count/increment", () => {
     setCount(c => c + 1);
   });
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useListener } from "../useChannel";
+import { useListener } from "../../src/useChannel";
 
 /* Illustrates different scenarios with React hook closures */
 

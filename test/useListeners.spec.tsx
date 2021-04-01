@@ -5,7 +5,7 @@ import {
   useASAPListener,
   useQueuedListener,
   useReplacingListener,
-  useIgnoringListener,
+  useThrottledListener,
 } from "../src/useListeners";
 
 jest.mock("../src/useChannel", () => ({
@@ -57,9 +57,9 @@ describe("Concurrency Controlled Listeners", () => {
     });
   });
 
-  describe("useIgnoringListener", () => {
+  describe("useThrottledListener", () => {
     it("calls useListener with mode: ignore", async () => {
-      await renderHook(() => useIgnoringListener(eventType, listener, {}));
+      await renderHook(() => useThrottledListener(eventType, listener, {}));
       expect(useListener).toHaveBeenCalledWith(
         eventType,
         listener,
