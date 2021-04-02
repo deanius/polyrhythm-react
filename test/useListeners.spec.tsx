@@ -4,7 +4,7 @@ import { useListener } from "../src/useChannel";
 import {
   useASAPListener,
   useQueuedListener,
-  useReplacingListener,
+  useRestartingListener,
   useThrottledListener,
 } from "../src/useListeners";
 
@@ -44,9 +44,9 @@ describe("Concurrency Controlled Listeners", () => {
     });
   });
 
-  describe("useReplacingListener", () => {
+  describe("useRestartingListener", () => {
     it("calls useListener with mode: replace", async () => {
-      await renderHook(() => useReplacingListener(eventType, listener, {}));
+      await renderHook(() => useRestartingListener(eventType, listener, {}));
       expect(useListener).toHaveBeenCalledWith(
         eventType,
         listener,

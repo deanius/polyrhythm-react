@@ -39,6 +39,26 @@ _TODO: Examples_
 
 `useChannel` is available for more advanced scenarios where a different channel is desired, such as for keeping one sub-tree's events separated from the default, for privacy, simulating a server in-browser (!), or other reasons.
 
+# Declarative Concurrency
+
+### ASAP (`mergeMap`, default)
+
+![](https://s3.amazonaws.com/www.deanius.com/useASAPListener.gif)
+
+### Queued (`concatMap`)
+
+![](https://s3.amazonaws.com/www.deanius.com/useQueuedListener.gif)
+
+### Restarting (`switchMap`)
+
+![](https://s3.amazonaws.com/www.deanius.com/useRestartingListener.gif)
+
+### Throttled (`exhaustMap`)
+
+![](https://s3.amazonaws.com/www.deanius.com/useThrottledListener.gif)
+
+# Automatic Cancelation
+
 # Middleware
 
 Adding `triggerAllMiddleware(channel)` to your Redux middleware stack will automatically trigger a polyrhythm event-channel event for every Redux action.

@@ -34,7 +34,7 @@ export function useQueuedListener(
 }
 
 /** Executes the Observable or Promise-returning listener in a sliding, replacing (RxJS switchMap) mode. */
-export function useReplacingListener(
+export function useRestartingListener(
   matcher: EventMatcher,
   listener: Listener<Event, any>,
   options: ListenerConfig = {}
@@ -46,7 +46,7 @@ export function useReplacingListener(
   return useListener(matcher, listener, config);
 }
 
-/** Executes the Observable or Promise-returning listener in a singletion, ignoring (RxJS exhaustMap) mode. */
+/** Executes the Observable or Promise-returning listener in a singleton, ignoring (RxJS exhaustMap) mode. */
 export function useThrottledListener(
   matcher: EventMatcher,
   listener: Listener<Event, any>,
@@ -55,6 +55,19 @@ export function useThrottledListener(
   const config: ListenerConfig = {
     ...options,
     mode: ConcurrencyMode.ignore
+  };
+  return useListener(matcher, listener, config);
+}
+
+/** Executes the Observable or Promise-returning listener in a toggling mode. */
+export function useToggledListener(
+  matcher: EventMatcher,
+  listener: Listener<Event, any>,
+  options: ListenerConfig = {}
+) {
+  const config: ListenerConfig = {
+    ...options,
+    mode: ConcurrencyMode.toggle
   };
   return useListener(matcher, listener, config);
 }
