@@ -5,11 +5,11 @@ import {
   useASAPListener,
   useQueuedListener,
   useRestartingListener,
-  useThrottledListener,
+  useThrottledListener
 } from "../src/useListeners";
 
 jest.mock("../src/useChannel", () => ({
-  useListener: jest.fn(),
+  useListener: jest.fn()
 }));
 
 describe("Concurrency Controlled Listeners", () => {
@@ -25,7 +25,7 @@ describe("Concurrency Controlled Listeners", () => {
         eventType,
         listener,
         expect.objectContaining({
-          mode: ConcurrencyMode.parallel,
+          mode: ConcurrencyMode.parallel
         })
       );
     });
@@ -38,7 +38,7 @@ describe("Concurrency Controlled Listeners", () => {
         eventType,
         listener,
         expect.objectContaining({
-          mode: ConcurrencyMode.serial,
+          mode: ConcurrencyMode.serial
         })
       );
     });
@@ -51,7 +51,7 @@ describe("Concurrency Controlled Listeners", () => {
         eventType,
         listener,
         expect.objectContaining({
-          mode: ConcurrencyMode.replace,
+          mode: ConcurrencyMode.replace
         })
       );
     });
@@ -64,7 +64,7 @@ describe("Concurrency Controlled Listeners", () => {
         eventType,
         listener,
         expect.objectContaining({
-          mode: ConcurrencyMode.ignore,
+          mode: ConcurrencyMode.ignore
         })
       );
     });

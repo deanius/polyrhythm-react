@@ -1,7 +1,7 @@
 {
   "name": "polyrhythm-react",
   "license": "MIT",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "main": "dist/index.js",
   "module": "dist/polyrhythm-react.esm.js",
   "typings": "dist/index.d.ts",
@@ -17,6 +17,7 @@
     }
   },
   "scripts": {
+    "prepublish": "tsdx lint && tsdx build",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
