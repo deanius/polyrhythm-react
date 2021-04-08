@@ -1,9 +1,11 @@
+// eslint-disable-next-line
+// @ts-nocheck
 import { renderHook } from "@testing-library/react-hooks";
 import { after } from "polyrhythm";
 import { of } from "rxjs";
 import { mergeMap } from "rxjs/operators";
 import {
-  useConcurrentEffect,
+  useCancelableEffect,
   useASAPEffect,
   useRestartingEffect,
   useQueuedEffect,
@@ -11,8 +13,8 @@ import {
   useToggledEffect
 } from "../src/useEffects";
 
-describe("useConcurrentEffect", () => {
-  let listeners = {
+describe("useCancelableEffect", () => {
+  const listeners = {
     num: (n: number) => of(n)
   };
   describe("args", () => {
@@ -23,7 +25,7 @@ describe("useConcurrentEffect", () => {
   describe("return tuple", () => {
     it("contains [trigger(T), unsub]", async () => {
       const { result } = await renderHook(() =>
-        useConcurrentEffect(listeners.num, mergeMap)
+        useCancelableEffect(listeners.num, mergeMap)
       );
       const [trigger, unsub] = result.current;
       expect(trigger).toBeInstanceOf(Function);
@@ -41,7 +43,7 @@ describe("useConcurrentEffect", () => {
         return after(100, () => calls.push(`done:${i}`));
       });
       const { result, unmount } = await renderHook(() =>
-        useConcurrentEffect(listenerSpy, mergeMap)
+        useCancelableEffect(listenerSpy, mergeMap)
       );
       const [trigger] = result.current;
 
