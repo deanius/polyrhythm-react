@@ -33,7 +33,7 @@ interface EffectFactory<T, U> {
  */
 export function useCancelableEffect<T, U>(
   listener: EffectFactory<T, U>,
-  op = switchMap
+  op = mergeMap
 ): [(item: T) => void, () => void] {
   const [trigger, unsub] = useMemo(() => {
     const subject = new Subject<T>();

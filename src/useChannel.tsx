@@ -80,20 +80,20 @@ export const useListener = (
   const { channel, trigger } = useChannel();
   const subscriptionRef = useRef(new Subscription(() => null));
 
-  let canceler: () => void;
+  let cancelerRef = useRef(() => {});
 
   useEffect(() => {
     const subscription = channel.on(eventSpec, handler, config);
     subscriptionRef.current = subscription;
-    canceler = () => {
+    const canceler = () => {
       subscription.unsubscribe();
-      return subscription;
     };
+    cancelerRef.current = canceler;
     return canceler;
   }, deps);
 
   // @ts-ignore
-  return [trigger, canceler];
+  return [trigger, cancelerRef.current];
 };
 
 /** Allows a component to intercept and run synchronous
